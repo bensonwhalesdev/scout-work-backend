@@ -1,15 +1,21 @@
+require('dotenv').config();
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./src/config/db")
 const authRouter = require("./src/routes/auth.route")
 
-dotenv.config();
+
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
+app.use(cookieParser());
 app.use(express.json());
+
 
 // Routes
 app.use("/api/v1/auth", authRouter);
