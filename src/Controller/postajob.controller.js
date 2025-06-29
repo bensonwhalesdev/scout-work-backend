@@ -20,6 +20,18 @@ const postJob = async (req, res) => {
   }
 };
 
+const getUserJobs = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const jobs = await Job.find({ user: userId }).sort({ createdAt: -1 });
+
+    res.status(200).json({ jobs });
+  } catch (error) {
+    console.error('Error fetching jobs:', error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
 
 const getAllJobs = async (req, res) => {
   try {
@@ -35,9 +47,9 @@ const updateJob = async (req, res) => {
     const job = await Job.findById(req.params.id);
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    if (job.user.toString() !== req.user.id) {
-      return res.status(403).json({ message: "Unauthorized to update this job" });
-    }
+    if (job.user.toString() !== req.user.userId) {
+  return res.status(403).json({ message: "Unauthorized to update this job" });
+}
 
     const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -54,7 +66,7 @@ const deleteJob = async (req, res) => {
     const job = await Job.findById(req.params.id);
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    if (job.user.toString() !== req.user.id) {
+    if (job.user.toString() !== req.user.userId) {
       return res.status(403).json({ message: "Unauthorized to delete this job" });
     }
 
@@ -65,4 +77,9 @@ const deleteJob = async (req, res) => {
   }
 };
 
-module.exports = { postJob, getAllJobs, updateJob, deleteJob };
+module.exports = { 
+  postJob,
+  getUserJobs, 
+  getAllJobs, 
+  updateJob, 
+  deleteJob };
