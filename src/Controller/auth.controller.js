@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../Model/auth.model");
-
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 // Helper function to create token
@@ -90,7 +89,20 @@ const login = async (req, res) => {
   }
 };
 
+const logout = (req, res) => {
+  res
+    .clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    })
+    .status(200)
+    .json({ message: "Logged out successfully" });
+};
+
+
 module.exports = {
   register,
   login,
+  logout
 };

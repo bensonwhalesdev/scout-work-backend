@@ -2,23 +2,22 @@ require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const connectDB = require("./src/config/db")
-const authRouter = require("./src/routes/auth.route")
+const connectDB = require("./src/config/db");
+const authRouter = require("./src/routes/auth.route");
+const jobRoutes = require('./src/routes/postajob.route');
 
 
 connectDB();
 
 const app = express();
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-}));
+app.use(cors({ origin: "http://localhost:5173",credentials: true, }));
 app.use(cookieParser());
 app.use(express.json());
 
 
 // Routes
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/job", jobRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
