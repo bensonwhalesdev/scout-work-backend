@@ -33,6 +33,18 @@ const getUserJobs = async (req, res) => {
   }
 };
 
+const getSingleJob = async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.id);
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+    res.status(200).json({ job });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch job", error: err.message });
+  }
+};
+
 const getAllJobs = async (req, res) => {
   try {
     const jobs = await Job.find().sort({ createdAt: -1 });
@@ -79,7 +91,8 @@ const deleteJob = async (req, res) => {
 
 module.exports = { 
   postJob,
-  getUserJobs, 
+  getUserJobs,
+  getSingleJob, 
   getAllJobs, 
   updateJob, 
   deleteJob };
