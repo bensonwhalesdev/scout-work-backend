@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const jobSchemaMongoose = new mongoose.Schema({
   title: { type: String, required: true },
+  company: { type: String, required: true },
   location: { type: String, required: true },
   region: { type: String },
   jobType: { type: String, enum: ["Full Time", "Part Time", "Internship"], required: true },
