@@ -5,7 +5,7 @@ const Apply = require("../Model/jobapply.model.js")
 const submitApplication = async (req, res) => {
   try {
     const parsed = jobApplicationSchema.parse(req.body);
-    
+   
     if (!req.file) {
       return res.status(400).json({ message: "Resume file is required." });
     }
