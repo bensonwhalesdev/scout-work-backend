@@ -6,7 +6,7 @@ const jobApplicationSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   jobId: { type: mongoose.Schema.Types.ObjectId, ref: "Scout-Job", required: true },
   message: { type: String, required: true },
-  resume: { type: String, required: true }, // path or URL to PDF
+  resume: { type: String, required: true },
 }, { timestamps: true });
 
 const Apply = mongoose.model("Scout-JobApplication", jobApplicationSchema);
