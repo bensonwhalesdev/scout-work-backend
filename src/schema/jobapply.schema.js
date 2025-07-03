@@ -6,6 +6,7 @@ const jobApplicationSchema = z.object({
   phone: z.string().min(10),
   message: z.string().min(10),
   jobId: z.string(),
+  userId: z.string(),
 });
 
 module.exports = jobApplicationSchema;
