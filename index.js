@@ -7,6 +7,7 @@ const authRouter = require("./src/routes/auth.route");
 const jobRoutes = require('./src/routes/postajob.route');
 const userRoutes = require('./src/routes/user.route');
 const jobApplyRoutes = require('./src/routes/jobapply.route');
+const jobOfferRoutes = require('./src/routes/offerjob.route');
 
 connectDB();
 
@@ -22,6 +23,7 @@ app.use("/api/v1/job", jobRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use("/api/v1/jobapply", jobApplyRoutes);
+app.use("/api/v1/joboffer", jobOfferRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
