@@ -31,7 +31,19 @@ const getOffersForFreelancer = async (req, res) => {
   }
 };
 
+const updateOfferStatus = async (req, res) => {
+    try {
+    const { status } = req.body;
+    const offer = await Offer.findByIdAndUpdate(req.params.offerId, { status }, { new: true });
+    if (!offer) return res.status(404).json({ message: "Offer not found" });
+    res.status(200).json(offer);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update offer" });
+  }
+}
+
 module.exports = {
   sendJobOffer,
   getOffersForFreelancer,
+  updateOfferStatus
 };
