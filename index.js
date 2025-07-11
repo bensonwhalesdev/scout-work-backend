@@ -13,7 +13,6 @@ const profileViewRoutes = require('./src/routes/profileviews.route');
 connectDB();
 
 const app = express();
-app.set("trust proxy", 1);
 app.use(cors({ origin: "https://scout-work.vercel.app",credentials: true, }));
 app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
